@@ -7,11 +7,10 @@ $today = Get-Date
 if ($today.Month -eq 4 -and $today.Day -eq 1) {
 # Holiday Text (And/Or Action)
 $text1 = "Happy April Fools Day"    
-# Start-Process "https://coin.medicatusb.com/"
+Start-Process "https://url.medicatusb.com/af26"
 } else {
-
 # Normal Text (Updated every once in a while.)
-$text1 = "If you or a loved one has been diagnosed with a broken computer, you may be asked to help now..."
+$text1 = "Happy Holidays on behalf of the Medicat USB team!, Please Join the discord and answer a few questions regarding the future update."
 } # Close Loop
 
 ### Saved messages
@@ -24,3 +23,4 @@ $Response = Invoke-RestMethod -Uri $Uri1 -Method Get
 $Translation1 = $Response[0].SyncRoot | foreach { $_[0] }
 
 write-host $Translation1
+

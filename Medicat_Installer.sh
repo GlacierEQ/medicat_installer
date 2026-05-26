@@ -22,7 +22,7 @@ wget["default"]="wget"
 declare -A zip
 zip["arch"]="p7zip"
 zip["nixos"]="nixos.p7zip"
-zip["fedora"]="p7zip-full p7zip-plugins"
+zip["fedora"]="p7zip p7zip-plugins"
 zip["nobara"]="p7zip-full p7zip-plugins"
 zip["centos"]="p7zip p7zip-plugins"
 zip["alpine"]="7zip"
@@ -207,9 +207,9 @@ elif [[ -e /etc/almalinux-release || -e /etc/rocky-release || -e /etc/centos-rel
 	update_arg="update"
 elif [[ -e /etc/fedora-release ]]; then
 	os="fedora"
-	pkgmgr="yum"
+	pkgmgr="dnf"
 	install_arg="install"
-	update_arg="update"
+	update_arg="upgrade"
 elif [[ -e /etc/nobara ]]; then
 	colEcho $redB "gaming moment"
 	os="fedora"
