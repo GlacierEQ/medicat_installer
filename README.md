@@ -1,70 +1,92 @@
-### Work on this script is currently on pause. Im working full time being a IT tech and Trainer, along with going back to college, Sorry.
-
 # Medicat Installer
 ![Logo](icon.png)
 
-> Read in: [![French](https://img.shields.io/badge/French-blue)](README.FR.md) [![Spanish](https://img.shields.io/badge/Spanish-blue)](README.ES.md) [![Turkish](https://img.shields.io/badge/Turkish-blue)](README.TR.md)
+> Old readmes (batch era): [![French](https://img.shields.io/badge/French-blue)](https://github.com/mon5termatt/medicat_installer/blob/legacy/README.FR.md) [![Spanish](https://img.shields.io/badge/Spanish-blue)](https://github.com/mon5termatt/medicat_installer/blob/legacy/README.ES.md) [![Turkish](https://img.shields.io/badge/Turkish-blue)](https://github.com/mon5termatt/medicat_installer/blob/legacy/README.TR.md)
 
 # [Visit the Medicat website](https://medicatusb.com/)
 
+The Windows installer is now a native C++ app (`MedicatInstaller.exe`). Same job as before: Ventoy, optional format, extract MediCat, verify files. Linux still has the shell script on the `linux` branch.
+
 ### We appreciate some code improvements to the installer!
-If you want to help us improve Medicat installer, you can:
+If you want to help improve Medicat installer, you can:
 * Join the Discord: (https://url.medicatusb.com/discord),
 
 OR:
 
-* Fork this project, and create a pull request with modified files.
+* Fork this project, and create a pull request with modified files. PRs welcome on **`main`**.
 
 # Compatibility
 * Windows 10/11 (Insider builds might break the installer)
-* Ubuntu / Arch / Debian / CentOS / FreeBSD / Fedora
+* Linux via `Medicat_Installer.sh` (Ubuntu / Arch / Debian / Fedora / Void / friends)
 
 #### Requirements for Windows
-* Windows 1703+ (releases after 2017)
-* cURL
+* Windows 10/11 (1703+ is fine)
+* Administrator (UAC)
 * Half a brain
+* A USB (or VHD) with about **30 GiB+** free, ideally 64GB+
+* `MediCat.USB.v21.12.7z` beside the exe, or grab it from the built-in mirrors / Drive parts
 
 #### Requirements for Linux
 * Terminal
 * Like 75% of a brain
-* General Linux Knowledge 
+* General Linux knowledge
+* Script lives on [`linux`](https://github.com/mon5termatt/medicat_installer/tree/linux) and is attached to each release
 
-# Main Files
-### Medicat_Installer.bat
-Contains the code required to download and install Medicat files
+# Grab a build
 
-### Medicat_Installer.sh
-Main file for installing via Linux command-line
+[GitHub Releases](https://github.com/mon5termatt/medicat_installer/releases)
 
-*Coded by: [@SkeletonMan03](https://github.com/SkeletonMan03)*
+| File | Platform |
+|------|----------|
+| `MedicatInstaller.exe` | Windows x64 |
+| `MedicatInstaller-x86.exe` | Windows 32-bit |
+| `Medicat_Installer.sh` | Linux |
 
-or
+# What it does (short version)
 
-```bash
-curl -fsSL https://raw.githubusercontent.com/mon5termatt/medicat_installer/refs/heads/main/Medicat_Installer.sh | bash
+* Installs or updates **Ventoy**
+* Optional **NTFS** format when you need a clean stick
+* Extracts **MediCat** with progress
+* **MD5 verify** + selective re-extract if something failed
+* GUI (dark theme) and a proper **CLI** (`/help`, `/install`, `/verify`, ...)
+
+More detail: [`FEATURES.md`](FEATURES.md) · [`CLI.md`](CLI.md) · [`UPDATER.md`](UPDATER.md)
+
+# Quick start
+
+1. Download the exe from Releases.
+2. Drop `MediCat.USB.v21.12.7z` next to it (or use the in-app download).
+3. Run as Administrator.
+4. Pick your USB. Install. Drink water.
+
+```bat
+MedicatInstaller.exe /help
+MedicatInstaller.exe /install /drive:E /yes
+MedicatInstaller.exe /verify /drive:E /yes
 ```
 
-# Programs Included / Downloaded during install
+Logs land beside the exe as `medicat_installer.log`. If something blows up and you upload logs, the dialog gives you a **Diag code** for Discord.
 
-  ### Files Downloaded
-  
-  1. [aria2](https://github.com/aria2/aria2)
-      * For downloading from the torrent file
-  2. [7Zip](https://www.7-zip.org/)
-      * For file extraction
-  3. [IPget](https://github.com/ipfs/ipget)
-      * IPFS wget basically
-  4. [FolderBrowse](https://github.com/TheBATeam/FolderBrowse-by-Fatih-Kodak)
-      * To find out what drive you want to install to without typing stuff
-  5. [QuickSFV](http://www.quicksfv.org/)
-      * For hashing the big files *somewhat* quickly...
-      
-  #### The Following are for the menu system:
-  1. [Batbox](https://github.com/TheBATeam/BATBOX-An-Awesome-Batch-Plugin)
-  2. [Box](https://github.com/TheBATeam/Box-Function-2.0)
-  3. [Button](https://github.com/TheBATeam/Button-Function-2.0-by-Kvc)
-  4. [Getinput](https://github.com/TheBATeam/GetInput-By-Aacini)
-  5. [Getlen](https://github.com/TheBATeam/Getlen-Function-2.0-by-Kvc)
+# Branches (for nerds)
+
+| Branch | What |
+|--------|------|
+| `main` | Active C++ installer (you are here) |
+| `linux` | Shell installer |
+| `legacy` / `legacy-archive` | Old batch scripts, frozen |
+| `archive/main-cpp-rewrite` | Backup of the short rewrite-era main |
+
+Batch history is also on tag `3520`.
+
+# Build from source
+
+Visual Studio 2022+, CMake, Python 3, plus `bin/7z/.../7za.exe` and `MedicatFiles.md5`. The build fetches official `aria2c` (GPL-2.0) and embeds it for multi-connection downloads.
+
+```bat
+rebuild.bat
+```
+
+Outputs land in `build/Release/`. Tagged releases (`1.0.N`) are built on GitHub Actions; see [`UPDATER.md`](UPDATER.md). Ask in Discord if you get stuck.
 
 # Credits
 
